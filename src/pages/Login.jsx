@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaStarOfLife } from 'react-icons/fa6';
 import { useNavigate } from 'react-router';
 
@@ -7,11 +7,14 @@ import closeCircle from '../assets/images/close-circle.png';
 import LoadingButton from '../components/LoadingButton';
 
 export default function Login() {
+  const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [usernameRequired, setUsernameRequired] = useState(false);
   const [passwordRequired, setPasswordRequired] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
+  const azzrkCallingSystemToken = localStorage.getItem(
+    'azzrkCallingSystemToken'
+  );
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -45,8 +48,8 @@ export default function Login() {
     const data = await response.json();
 
     if (response.ok) {
-      localStorage.setItem('user', data?.access);
-      localStorage.setItem('userRole', data?.user?.role);
+      console.log(data);
+      localStorage.setItem('azzrkCallingSystemToken', data?.access);
 
       navigate('/calling');
 
@@ -65,6 +68,12 @@ export default function Login() {
       setIsLoading(false);
     }
   }
+
+  useEffect(() => {
+    if (azzrkCallingSystemToken) {
+      navigate('/calling');
+    }
+  }, []);
 
   return (
     <main className="flex items-center max-sm:flex-col max-sm:h-screen max-sm:gap-4">

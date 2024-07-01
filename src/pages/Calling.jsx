@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SideBar from '../components/SideBar';
 import { FaArrowRight } from 'react-icons/fa';
-import { IoCall, IoClose } from 'react-icons/io5';
-import circleIcon from '../assets/images/circleIcon.png';
-import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
+import { IoClose } from 'react-icons/io5';
 import InnocallsRTCComponent from '../components/InnCallRTLComponents';
 
 export default function Calling() {
   const [isOpenSidebar, setIsOpenSiderbar] = useState(true);
+
+  const azzrkCallingSystemToken = localStorage.getItem(
+    'azzrkCallingSystemToken'
+  );
+
+  useEffect(() => {
+    if (!azzrkCallingSystemToken) {
+      window.location.pathname = '/';
+    }
+  }, []);
 
   return (
     <div className="flex justify-end">
@@ -38,55 +46,6 @@ export default function Calling() {
         </div>
 
         <InnocallsRTCComponent />
-
-        {/* <div
-          className="w-[496px] h-auto rounded-xl overflow-hidden pb-8"
-          style={{ boxShadow: '2px 1px 15px -1px #00000040' }}
-        >
-          <div className="w-full bg-[#10B981] px-2 py-2 flex items-center gap-x-[0.25rem]">
-            <RiCheckboxBlankCircleFill className="text-white" />
-            <p className="text-white text-[24px]">Connected 504</p>
-          </div>
-
-          <input
-            type="text"
-            placeholder="Enter digits....."
-            className="mt-4 w-[80%] p-4 bg-[#EBEBEB] rounded-lg mx-auto block outline-none"
-          />
-
-          <div className="max-w-[70%] mx-auto mt-10">
-            <div className="grid grid-cols-3 gap-4 mt-6 ">
-              {Array.from({ length: 9 }).map((_, index) => {
-                return (
-                  <button
-                    key={`button-${index}`}
-                    className="text-4xl font-semibold m-auto bg-[#EBEBEB] transition-all ease-in-out hover:bg-[#e0dfdf] text-[#1A1A1A] flex items-center justify-center w-[90px] h-[90px] rounded-full fit-content"
-                  >
-                    <p>{index + 1}</p>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="grid grid-cols-3 gap-4 mt-[1rem]">
-              <button className="text-6xl font-semibold m-auto bg-[#EBEBEB] transition-all ease-in-out hover:bg-[#e0dfdf] text-[#1A1A1A] flex items-center justify-center w-[90px] h-[90px] rounded-full fit-content">
-                <p className="mb-[-20px]">*</p>
-              </button>
-              <button className="text-4xl font-semibold m-auto bg-[#EBEBEB] transition-all ease-in-out hover:bg-[#e0dfdf] text-[#1A1A1A] flex items-center justify-center w-[90px] h-[90px] rounded-full fit-content">
-                <p>0</p>
-              </button>
-              <button className="text-4xl font-semibold m-auto bg-[#EBEBEB] transition-all ease-in-out hover:bg-[#e0dfdf] text-[#1A1A1A] flex items-center justify-center w-[90px] h-[90px] rounded-full fit-content">
-                <p>#</p>
-              </button>
-            </div>
-
-            <div className="mt-10">
-              <button className="text-4xl font-semibold m-auto bg-[#10B981] text-[#fff] flex items-center justify-center w-[90px] h-[90px] rounded-full fit-content transition-all ease-in-out hover:bg-[#10b981da]">
-                <IoCall />
-              </button>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );
