@@ -7,7 +7,7 @@ on:
 
 jobs:
   deployment:
-    runs-on: self-hosted
+    runs-on: calling-system 
     steps:
       - name: Checkout Code Repository
         uses: actions/checkout@v4
